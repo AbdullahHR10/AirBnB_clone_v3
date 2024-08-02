@@ -76,3 +76,12 @@ class FileStorage:
             return None
         key = f"{cls.__name__}.{id}"
         return self.storage.get(key, None)
+
+    @classmethod
+    def count(self, cls=None):
+        """Counts the number of objects in storage"""
+        if not cls:
+            return len(self.storage)
+        else:
+            class_name = cls.__name__
+            return sum(1 for key in self.storage if key.startswith(class_name + "."))
